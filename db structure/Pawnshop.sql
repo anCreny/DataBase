@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db
--- Generation Time: May 17, 2022 at 07:29 PM
+-- Generation Time: May 18, 2022 at 07:50 PM
 -- Server version: 8.0.29
 -- PHP Version: 8.0.19
 
@@ -72,6 +72,22 @@ CREATE TABLE `Deal` (
   `Comission` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+--
+-- Dumping data for table `Deal`
+--
+
+INSERT INTO `Deal` (`IDDeal`, `IDClient`, `IDProductCategory`, `ProductDescription`, `TakingDate`, `ReturningDate`, `Pledge`, `Comission`) VALUES
+(7, 3, 7, 'Iphone 11', '2022-03-02', '2022-05-02', 4000, 12),
+(8, 3, 8, 'soft pillow', '2022-04-01', '2022-06-01', 300, 2),
+(9, 9, 7, 'Laptop Lenovo', '2022-05-17', '2022-07-08', 3000, 12),
+(10, 11, 8, 'Sofa', '2022-04-26', '2022-05-05', 1000, 2),
+(11, 8, 7, 'Samsung A52', '2022-02-01', '2022-05-31', 1500, 16),
+(12, 13, 8, 'Two pillows', '2022-05-03', '2022-05-05', 20, 2),
+(13, 7, 6, 'Father\'s glasses', '2018-12-05', '2018-12-12', 600, 5),
+(14, 12, 4, 'Ancient fork', '2022-05-04', '2022-05-25', 100, 3),
+(15, 10, 9, 'Paper pack\r\n', '2022-06-02', '2022-06-10', 4500, 20),
+(16, 6, 5, 'Flower pot', '2021-08-02', '2020-11-20', 50, 4);
+
 -- --------------------------------------------------------
 
 --
@@ -84,6 +100,19 @@ CREATE TABLE `OwnProduct` (
   `CurrentPrice` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
 
+--
+-- Dumping data for table `OwnProduct`
+--
+
+INSERT INTO `OwnProduct` (`IDOwnProduct`, `IDDeal`, `CurrentPrice`) VALUES
+(5, 16, 1000),
+(6, 9, 1999),
+(7, 8, 699),
+(8, 10, 6000),
+(9, 11, 1999),
+(10, 12, 299),
+(11, 15, 5000);
+
 -- --------------------------------------------------------
 
 --
@@ -95,6 +124,26 @@ CREATE TABLE `Price` (
   `IDOwnProduct` int NOT NULL,
   `Price` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `Price`
+--
+
+INSERT INTO `Price` (`(PK)IDPrice`, `IDOwnProduct`, `Price`) VALUES
+(2, 5, 2000),
+(3, 5, 500),
+(4, 6, 3999),
+(5, 6, 799),
+(6, 7, 1099),
+(7, 7, 299),
+(8, 8, 8000),
+(9, 8, 4000),
+(10, 9, 999),
+(11, 9, 2499),
+(12, 10, 499),
+(13, 10, 199),
+(14, 11, 5999),
+(15, 11, 3999);
 
 -- --------------------------------------------------------
 
@@ -113,7 +162,12 @@ CREATE TABLE `ProductCategory` (
 --
 
 INSERT INTO `ProductCategory` (`IDProductCategory`, `Name`, `Notes`) VALUES
-(1, 'Yellow', 'Yellow');
+(4, 'Metal', 'Smth metallic'),
+(5, 'Plastic', 'Smth plastic'),
+(6, 'Glass', 'Smth glassy'),
+(7, 'Electronic', 'Some electronics'),
+(8, 'Fabric', 'Smth Fabric'),
+(9, 'Paper', 'Smth Paper');
 
 --
 -- Indexes for dumped tables
@@ -130,22 +184,22 @@ ALTER TABLE `Client`
 --
 ALTER TABLE `Deal`
   ADD PRIMARY KEY (`IDDeal`),
-  ADD KEY `1` (`IDClient`),
-  ADD KEY `2` (`IDProductCategory`);
+  ADD KEY `Client` (`IDClient`),
+  ADD KEY `ProductCategory` (`IDProductCategory`);
 
 --
 -- Indexes for table `OwnProduct`
 --
 ALTER TABLE `OwnProduct`
   ADD PRIMARY KEY (`IDOwnProduct`),
-  ADD KEY `3` (`IDDeal`);
+  ADD KEY `Deal` (`IDDeal`);
 
 --
 -- Indexes for table `Price`
 --
 ALTER TABLE `Price`
   ADD PRIMARY KEY (`(PK)IDPrice`),
-  ADD KEY `6` (`IDOwnProduct`);
+  ADD KEY `OwnProduct` (`IDOwnProduct`);
 
 --
 -- Indexes for table `ProductCategory`
@@ -167,25 +221,25 @@ ALTER TABLE `Client`
 -- AUTO_INCREMENT for table `Deal`
 --
 ALTER TABLE `Deal`
-  MODIFY `IDDeal` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `IDDeal` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `OwnProduct`
 --
 ALTER TABLE `OwnProduct`
-  MODIFY `IDOwnProduct` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `IDOwnProduct` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `Price`
 --
 ALTER TABLE `Price`
-  MODIFY `(PK)IDPrice` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `(PK)IDPrice` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `ProductCategory`
 --
 ALTER TABLE `ProductCategory`
-  MODIFY `IDProductCategory` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `IDProductCategory` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Constraints for dumped tables
@@ -195,8 +249,8 @@ ALTER TABLE `ProductCategory`
 -- Constraints for table `Deal`
 --
 ALTER TABLE `Deal`
-  ADD CONSTRAINT `1` FOREIGN KEY (`IDClient`) REFERENCES `Client` (`IDClient`) ON DELETE CASCADE,
-  ADD CONSTRAINT `2` FOREIGN KEY (`IDProductCategory`) REFERENCES `ProductCategory` (`IDProductCategory`) ON DELETE RESTRICT;
+  ADD CONSTRAINT `Client` FOREIGN KEY (`IDClient`) REFERENCES `Client` (`IDClient`) ON DELETE CASCADE ON UPDATE RESTRICT,
+  ADD CONSTRAINT `ProductCategory` FOREIGN KEY (`IDProductCategory`) REFERENCES `ProductCategory` (`IDProductCategory`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
 -- Constraints for table `OwnProduct`
