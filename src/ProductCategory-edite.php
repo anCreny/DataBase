@@ -58,7 +58,7 @@ if(isset($_POST['name'])){
 <html>
     <head>
         <link href="styles.css" rel="stylesheet" type="text/css">
-        <link href="das.scss" rel="stylesheet" type="text/scss">
+        <link href="style2.css" rel="stylesheet" type="text/css">
         <meta charset="utf-8">
         <title>Create</title>
     </head>
@@ -118,12 +118,25 @@ if(isset($_POST['name'])){
                 </button>
             </div>
         </form>
-        <div>
-            <?php if($succes == 1){
-                echo "SUCCESS!";
-            }else if($succes == 2){
-                echo $errors;
-            } ?>
-        </div>
+        <?php if($succes == 1){ ?>
+                    <div class="alert success-alert">
+                        <h3>SUCCESS</h3>
+                        <a class="close">&times;</a>
+                    </div>
+
+                <?php }else if($succes == 2){ ?>
+                    <div class="alert danger-alert">
+                        <h3>Errors: <?php echo $errors ?></h3>
+                        <a class="close">&times;</a>
+                    </div>
+              <?php  } ?>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+                $(".close").click(function() {
+            $(this)
+            .parent(".alert")
+            .fadeOut();
+        });
+    </script>
     </body>
 </html>

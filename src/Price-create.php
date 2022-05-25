@@ -12,8 +12,10 @@ if(isset($_POST['product'])){
     }
     if($_POST['price'] == ""){
         $errrors .= "[CurrentPrice: empty]\n";
-    }else{
+    }else if(ctype_digit($_POST['price'])){
         $price = $_POST['price'];
+    }else{
+        $errrors .= "[CurrentPrice: there's must be only numbers]\n";
     }
     if($errrors == ""){
         $sql = "INSERT INTO Price VALUES (NULL, '$product', '$price')";
@@ -38,8 +40,9 @@ if(isset($_POST['product'])){
 ?>
 <html>
     <head>
+
         <link href="styles.css" rel="stylesheet" type="text/css">
-        <link href="das.scss" rel="stylesheet" type="text/scss">
+        <link href="style2.css" rel="stylesheet" type="text/css">
         <meta charset="utf-8">
         <title>Create</title>
     </head>
@@ -56,6 +59,7 @@ if(isset($_POST['product'])){
         </div>
     </header>
     <body>
+
         <form action="" method="POST">
             <table align = "center" style = "width:20%">
                 <tr>
@@ -92,13 +96,28 @@ if(isset($_POST['product'])){
                     </td>
                 </tr>
             </table>
-            <div>
-                <?php if($succes == 1){
-                    echo "SUCCESS!";
-                }else if($succes == 2){
-                    echo $errrors;
-                } ?>
-            </div>
         </form>
+
+        <?php if($succes == 1){ ?>
+                    <div class="alert success-alert">
+                        <h3>SUCCESS</h3>
+                        <a class="close">&times;</a>
+                    </div>
+
+                <?php }else if($succes == 2){ ?>
+                    <div class="alert danger-alert">
+                        <h3>Errors: <?php echo $errrors ?></h3>
+                        <a class="close">&times;</a>
+                    </div>
+              <?php  } ?>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+                $(".close").click(function() {
+            $(this)
+            .parent(".alert")
+            .fadeOut();
+        });
+    </script>
+
     </body>
 </html>
