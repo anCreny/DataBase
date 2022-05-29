@@ -19,7 +19,7 @@ include 'fnc.php';
             Client
         </div>
         <div class="hit-the-floor" style = "font-size: 26px; margin-bottom: 20px">
-            There's <?php echo mysqli_fetch_row(mysqli_query($db, "SELECT COUNT(*) FROM Client"))[0]?> rows
+            There are <?php echo mysqli_fetch_row(mysqli_query($db, "SELECT COUNT(*) FROM Client"))[0]?> rows
         </div>
         <div style = "text-align: center; margin-bottom: 20px">
             <form action="Client-create.php">
