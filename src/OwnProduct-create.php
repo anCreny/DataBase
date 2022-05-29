@@ -76,7 +76,7 @@ if(isset($_POST['deal'])){
                 <tr>
                     <td>
                         <div class="Input" style = "margin: 20px; align-items:center">
-                            <input type="text" id="input" name="price" value='<?php echo $notes ?>' class="Input-text" placeholder="CurrentPrice">
+                            <input type="text" id="input" name="price" value='<?php echo $price ?>' class="Input-text" placeholder="CurrentPrice">
                             <label for="input" class="Input-label">CurrentPrice</label>
                         </div>
                     </td>

@@ -15,7 +15,7 @@ if(isset($_POST['product'])){
     }else if(ctype_digit($_POST['price'])){
         $price = $_POST['price'];
     }else{
-        $errrors .= "[CurrentPrice: there's must be only numbers]\n";
+        $errrors .= "[Price: there's must be only numbers]\n";
     }
     if($errrors == ""){
         $sql = "INSERT INTO Price VALUES (NULL, '$product', '$price')";
@@ -81,7 +81,7 @@ if(isset($_POST['product'])){
                 <tr>
                     <td>
                         <div class="Input" style = "margin: 20px; align-items:center">
-                            <input type="text" id="input" name="price" value='<?php echo $notes ?>' class="Input-text" placeholder="Price">
+                            <input type="text" id="input" name="price" value='<?php echo $price ?>' class="Input-text" placeholder="Price">
                             <label for="input" class="Input-label">Price</label>
                         </div>
                     </td>
